@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:provider/provider.dart';
 import '../widgets/drawer_general.dart';
-import '../widgets/common_app_bar_actions.dart';
+import '../widgets/common_app_bar.dart';
+import '../widgets/app_drawer.dart';
+import '../widgets/app_bottom_nav_bar.dart';
 import '../services/audio_service.dart';
 import 'user/pantalla_home.dart';
 import 'user/pantalla_pedidos.dart';
@@ -41,39 +43,13 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     
-    final List<String> _titles = [
-      l10n.home,
-      l10n.orders,
-      l10n.me,
-    ];
-    
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_titles[_selectedIndex]),
-        actions: [
-          CommonAppBarActions(),
-        ],
+      appBar: CommonAppBar(title: l10n.mainPage),
+      drawer: AppDrawer(),
+      body: Center(
+        child: _screens[_selectedIndex],
       ),
-      body: _screens[_selectedIndex],
-      drawer: DrawerGeneral(onNavigate: _onNavTap),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onNavTap,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: l10n.home,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_bag),
-            label: l10n.orders,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: l10n.me,
-          ),
-        ],
-      ),
+      bottomNavigationBar: AppBottomNavBar(currentIndex: 0),
     );
   }
 }

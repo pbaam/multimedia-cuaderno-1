@@ -254,4 +254,112 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get changePassword => 'Cambiar contraseña';
+
+  @override
+  String get createUser => 'Crear usuario';
+
+  @override
+  String get create => 'Crear';
+
+  @override
+  String get save => 'Guardar';
+
+  @override
+  String get updateStatus => 'Actualizar Estado';
+
+  @override
+  String get currentStatus => 'Estado actual';
+
+  @override
+  String get selectNewStatus => 'Seleccionar nuevo estado';
+
+  @override
+  String get orderStatusUpdated => 'Estado del pedido actualizado a';
+
+  @override
+  String get pending => 'Pendiente';
+
+  @override
+  String get processing => 'Procesando';
+
+  @override
+  String get shipped => 'Enviado';
+
+  @override
+  String get delivered => 'Entregado';
+
+  @override
+  String get cancelled => 'Cancelado';
+
+  @override
+  String get details => 'Detalles';
+
+  @override
+  String get close => 'Cerrar';
+
+  @override
+  String get delete => 'Eliminar';
+
+  @override
+  String get deleteUser => 'Eliminar Usuario';
+
+  @override
+  String get deleteProduct => 'Eliminar Producto';
+
+  @override
+  String get areYouSureDeleteUser => '¿Estás seguro de que quieres eliminar a';
+
+  @override
+  String get areYouSureDeleteProduct => '¿Estás seguro de que quieres eliminar';
+
+  @override
+  String get userUpdated => 'Usuario actualizado';
+
+  @override
+  String get productUpdated => 'Producto actualizado';
+
+  @override
+  String get productDeleted => 'Producto eliminado';
+
+  @override
+  String get userDeleted => 'Usuario eliminado';
+
+  @override
+  String get editProduct => 'Editar Producto';
+
+  @override
+  String get addNewProduct => 'Agregar Nuevo Producto';
+
+  @override
+  String get addProduct => 'Agregar Producto';
+
+  @override
+  String get newProductAdded => 'Nuevo producto agregado';
+
+  @override
+  String get description => 'Descripción';
+
+  @override
+  String get mustEnterDescription => 'Debes introducir una descripción';
+
+  @override
+  String get price => 'Precio';
+
+  @override
+  String get mustEnterPrice => 'Debes introducir un precio';
+
+  @override
+  String get invalidPrice => 'Precio inválido';
+
+  @override
+  String get items => 'Artículos';
+
+  @override
+  String get total => 'Total';
+
+  @override
+  String get orderDetails => 'Detalles del Pedido';
+
+  @override
+  String get status => 'Estado';
 }

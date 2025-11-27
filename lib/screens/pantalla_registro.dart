@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import '../widgets/register_form.dart';
 import '../widgets/language_button.dart';
 import '../l10n/app_localizations.dart';
+import '../config/resources/app_dimensions.dart';
 
 class PantallaRegistro extends StatefulWidget {
   const PantallaRegistro({super.key});
@@ -29,9 +30,9 @@ class _PantallaRegistro extends State<PantallaRegistro> {
       ),
       body: Center(
         child: ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: 600),
+          constraints: BoxConstraints(maxWidth: AppDimensions.maxWidth600),
           child: SingleChildScrollView(
-            padding: EdgeInsets.all(24.0),
+            padding: EdgeInsets.all(AppDimensions.spacing24),
             child: RegisterForm(),
           ),
         ),

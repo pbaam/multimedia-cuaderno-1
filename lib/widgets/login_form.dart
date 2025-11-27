@@ -188,10 +188,35 @@ class _StatefulWidget extends State<LoginForm> {
   Widget googleSignInButton() {
     final l10n = AppLocalizations.of(context)!;
     return OutlinedButton.icon(
-      onPressed: () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(l10n.googleSignInNotImplemented)),
+      onPressed: () async {
+        return;
+        final userController = Provider.of<LocalUserController>(context, listen: false);
+        final audioService = Provider.of<AudioService>(context, listen: false);
+        
+        // Show loading indicator
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => Center(
+            child: CircularProgressIndicator(),
+          ),
         );
+        
+        final success = await userController.loginWithGoogle();
+        
+        if (!mounted) return;
+        
+        // Close loading indicator
+        Navigator.of(context).pop();
+        
+        if (success) {
+          await audioService.startBackgroundMusic();
+          context.go('/main');
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(l10n.incorrectCredentials)),
+          );
+        }
       },
       icon: SvgPicture.asset(
         'images/google.svg',

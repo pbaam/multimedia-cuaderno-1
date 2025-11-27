@@ -253,4 +253,112 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get changePassword => 'Change password';
+
+  @override
+  String get createUser => 'Create user';
+
+  @override
+  String get create => 'Create';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get updateStatus => 'Update Status';
+
+  @override
+  String get currentStatus => 'Current status';
+
+  @override
+  String get selectNewStatus => 'Select new status';
+
+  @override
+  String get orderStatusUpdated => 'Order status updated to';
+
+  @override
+  String get pending => 'Pending';
+
+  @override
+  String get processing => 'Processing';
+
+  @override
+  String get shipped => 'Shipped';
+
+  @override
+  String get delivered => 'Delivered';
+
+  @override
+  String get cancelled => 'Cancelled';
+
+  @override
+  String get details => 'Details';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get delete => 'Delete';
+
+  @override
+  String get deleteUser => 'Delete User';
+
+  @override
+  String get deleteProduct => 'Delete Product';
+
+  @override
+  String get areYouSureDeleteUser => 'Are you sure you want to delete';
+
+  @override
+  String get areYouSureDeleteProduct => 'Are you sure you want to delete';
+
+  @override
+  String get userUpdated => 'User updated';
+
+  @override
+  String get productUpdated => 'Product updated';
+
+  @override
+  String get productDeleted => 'Product deleted';
+
+  @override
+  String get userDeleted => 'User deleted';
+
+  @override
+  String get editProduct => 'Edit Product';
+
+  @override
+  String get addNewProduct => 'Add New Product';
+
+  @override
+  String get addProduct => 'Add Product';
+
+  @override
+  String get newProductAdded => 'New product added';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get mustEnterDescription => 'You must enter a description';
+
+  @override
+  String get price => 'Price';
+
+  @override
+  String get mustEnterPrice => 'You must enter a price';
+
+  @override
+  String get invalidPrice => 'Invalid price';
+
+  @override
+  String get items => 'Items';
+
+  @override
+  String get total => 'Total';
+
+  @override
+  String get orderDetails => 'Order Details';
+
+  @override
+  String get status => 'Status';
 }

@@ -20,10 +20,15 @@ import 'screens/admin/pantalla_admin_productos.dart';
 import 'screens/admin/pantalla_admin_pedidos.dart';
 import 'screens/admin/pantalla_admin_inventario.dart';
 import 'models/user.dart';
+import 'firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
+
   final languageService = LanguageService();
   await languageService.initialize();
   
@@ -53,28 +58,30 @@ class App extends StatelessWidget {
       redirect: (context, state) async {
         await userController.initializeSession();
         final isLoggedIn = userController.isLoggedIn;
-        final isAdmin = userController.user?.role == UserRole.administrator;
+        final user = userController.user;
+        final isAdmin = user?.role == UserRole.administrator;
+        final isRootAdmin = user?.name.toLowerCase() == 'admin';
         final isGoingToAuth = state.matchedLocation == '/login' || 
                               state.matchedLocation == '/register';
         final isGoingToAdmin = state.matchedLocation.startsWith('/admin');
 
-        // Redirect logged-in users away from auth pages
+        // Redirige a los usuarios autenticados fuera de las páginas de autenticación
         if (isLoggedIn && isGoingToAuth) {
-          return isAdmin ? '/admin' : '/main';
+          return isRootAdmin ? '/admin' : '/main';
         }
 
-        // Redirect non-logged-in users to login
+        // Redirige a los usuarios no autenticados a login
         if (!isLoggedIn && !isGoingToAuth) {
           return '/login';
         }
 
-        // Redirect non-admin users away from admin pages
+        // Redirige a los usuarios no administradores fuera de las páginas de administración
         if (isGoingToAdmin && !isAdmin) {
           return '/main';
         }
 
-        // Redirect admin users away from regular user pages
-        if (isAdmin && state.matchedLocation == '/main') {
+        // Redirige al administrador root fuera de main/productos al panel de administración
+        if (isRootAdmin && state.matchedLocation == '/main') {
           return '/admin';
         }
 

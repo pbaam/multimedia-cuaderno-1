@@ -7,7 +7,9 @@ import 'package:go_router/go_router.dart';
 import '../../controllers/local_user_controller.dart';
 import '../../widgets/location_dropdown.dart';
 import '../../widgets/drawer_general.dart';
-import '../../widgets/common_app_bar_actions.dart';
+import '../../widgets/common_app_bar.dart';
+import '../../widgets/app_drawer.dart';
+import '../../widgets/app_bottom_nav_bar.dart';
 import '../../l10n/app_localizations.dart';
 
 class PantallaEditarPerfil extends StatefulWidget {
@@ -51,13 +53,8 @@ class _PantallaEditarPerfilState extends State<PantallaEditarPerfil> {
     final l10n = AppLocalizations.of(context)!;
     
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.editProfile),
-        actions: [
-          CommonAppBarActions(),
-        ],
-      ),
-      drawer: DrawerGeneral(),
+      appBar: CommonAppBar(title: l10n.editProfile),
+      drawer: AppDrawer(),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(24),
         child: Form(
@@ -182,6 +179,7 @@ class _PantallaEditarPerfilState extends State<PantallaEditarPerfil> {
           ),
         ),
       ),
+      bottomNavigationBar: AppBottomNavBar(currentIndex: 2),
     );
   }
 

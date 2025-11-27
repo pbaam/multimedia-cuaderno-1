@@ -1,5 +1,13 @@
 import 'product.dart';
 
+enum OrderStatus {
+  pending,
+  processing,
+  shipped,
+  delivered,
+  cancelled,
+}
+
 class OrderItem {
   final Product product;
   final int quantity;
@@ -12,14 +20,16 @@ class OrderItem {
 
 class Order {
   final String id;
-  final DateTime date;
   final List<OrderItem> items;
+  final DateTime date;
   final double total;
+  OrderStatus status;
 
   Order({
     required this.id,
-    required this.date,
     required this.items,
+    required this.date,
     required this.total,
+    this.status = OrderStatus.pending,
   });
 }

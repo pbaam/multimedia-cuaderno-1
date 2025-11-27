@@ -8,6 +8,9 @@ import '../l10n/app_localizations.dart';
 import '../models/user.dart';
 import '../controllers/local_user_controller.dart';
 import '../config/resources/button_styles.dart';
+import '../config/resources/app_colors.dart';
+import '../config/resources/app_dimensions.dart';
+import '../config/utils/validators.dart';
 import 'location_dropdown.dart';
 
 class RegisterForm extends StatefulWidget {
@@ -39,23 +42,23 @@ class _RegisterFormState extends State<RegisterForm> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           treatmentRadioButtons(),
-          SizedBox(height: 16),
+          SizedBox(height: AppDimensions.spacing16),
           nameField(),
-          SizedBox(height: 16),
+          SizedBox(height: AppDimensions.spacing16),
           emailField(),
-          SizedBox(height: 16),
+          SizedBox(height: AppDimensions.spacing16),
           passwordField(),
-          SizedBox(height: 16),
+          SizedBox(height: AppDimensions.spacing16),
           confirmPasswordField(),
-          SizedBox(height: 16),
+          SizedBox(height: AppDimensions.spacing16),
           imageUploadSection(),
-          SizedBox(height: 16),
+          SizedBox(height: AppDimensions.spacing16),
           ageField(),
-          SizedBox(height: 16),
+          SizedBox(height: AppDimensions.spacing16),
           birthPlaceField(),
-          SizedBox(height: 16),
+          SizedBox(height: AppDimensions.spacing16),
           termsCheckbox(),
-          SizedBox(height: 24),
+          SizedBox(height: AppDimensions.spacing24),
           acceptButton(),
         ],
       ),
@@ -67,8 +70,8 @@ class _RegisterFormState extends State<RegisterForm> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(l10n.treatment, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-        SizedBox(height: 8),
+        Text(l10n.treatment, style: TextStyle(fontSize: AppDimensions.fontSize16, fontWeight: FontWeight.w500)),
+        SizedBox(height: AppDimensions.spacing8),
         Row(
           children: [
             Expanded(
@@ -107,12 +110,7 @@ class _RegisterFormState extends State<RegisterForm> {
         labelText: l10n.name,
         border: OutlineInputBorder(),
       ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return l10n.mustEnterName;
-        }
-        return null;
-      },
+      validator: (value) => FormValidators.validateName(value, l10n),
     );
   }
 
@@ -124,15 +122,7 @@ class _RegisterFormState extends State<RegisterForm> {
         labelText: l10n.email,
         border: OutlineInputBorder(),
       ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return l10n.mustEnterEmail;
-        }
-        if (!value.contains('@')) {
-          return l10n.invalidEmail;
-        }
-        return null;
-      },
+      validator: (value) => FormValidators.validateEmail(value, l10n),
     );
   }
 
@@ -145,12 +135,7 @@ class _RegisterFormState extends State<RegisterForm> {
         labelText: l10n.password,
         border: OutlineInputBorder(),
       ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return l10n.mustEnterPassword;
-        }
-        return null;
-      },
+      validator: (value) => FormValidators.validatePassword(value, l10n),
     );
   }
 
@@ -163,15 +148,11 @@ class _RegisterFormState extends State<RegisterForm> {
         labelText: l10n.repeatPassword,
         border: OutlineInputBorder(),
       ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return l10n.mustRepeatPassword;
-        }
-        if (value != passwordController.text) {
-          return l10n.passwordsDoNotMatch;
-        }
-        return null;
-      },
+      validator: (value) => FormValidators.validateConfirmPassword(
+        value,
+        passwordController.text,
+        l10n,
+      ),
     );
   }
 
@@ -189,21 +170,21 @@ class _RegisterFormState extends State<RegisterForm> {
                 icon: Icon(Icons.upload),
                 label: Text(l10n.uploadImage),
                 style: OutlinedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                  padding: EdgeInsets.symmetric(vertical: AppDimensions.spacing16, horizontal: AppDimensions.spacing24),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(AppDimensions.borderRadius8),
                   ),
                 ),
               ),
-              SizedBox(width: 8),
+              SizedBox(width: AppDimensions.spacing8),
               OutlinedButton.icon(
                 onPressed: _takePhoto,
                 icon: Icon(Icons.camera_alt),
                 label: Text(l10n.capture),
                 style: OutlinedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                  padding: EdgeInsets.symmetric(vertical: AppDimensions.spacing16, horizontal: AppDimensions.spacing24),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(AppDimensions.borderRadius8),
                   ),
                 ),
               ),
@@ -218,15 +199,15 @@ class _RegisterFormState extends State<RegisterForm> {
                     onTap: _pickImage,
                     child: Container(
                       constraints: BoxConstraints(
-                        maxWidth: 150,
-                        maxHeight: 150,
+                        maxWidth: AppDimensions.imageSize150,
+                        maxHeight: AppDimensions.imageSize150,
                       ),
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: AppColors.grey),
+                        borderRadius: BorderRadius.circular(AppDimensions.borderRadius8),
                       ),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(AppDimensions.borderRadius8),
                         child: kIsWeb
                             ? Image.network(
                                 imagePath!,
@@ -243,10 +224,10 @@ class _RegisterFormState extends State<RegisterForm> {
                     top: 0,
                     right: 0,
                     child: IconButton(
-                      icon: Icon(Icons.close, color: Colors.red),
+                      icon: Icon(Icons.close, color: AppColors.red),
                       style: IconButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        padding: EdgeInsets.all(4),
+                        backgroundColor: AppColors.white,
+                        padding: EdgeInsets.all(AppDimensions.spacing4),
                       ),
                       onPressed: () {
                         setState(() => imagePath = null);
@@ -255,10 +236,10 @@ class _RegisterFormState extends State<RegisterForm> {
                   ),
                 ],
               ),
-              SizedBox(height: 8),
+              SizedBox(height: AppDimensions.spacing8),
               Text(
                 l10n.tapToChange,
-                style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                style: TextStyle(fontSize: AppDimensions.fontSize12, color: AppColors.grey600),
               ),
             ],
           ),
@@ -266,6 +247,7 @@ class _RegisterFormState extends State<RegisterForm> {
     );
   }
 
+  /// Selecciona una imagen de la galería
   Future<void> _pickImage() async {
     final XFile? photo = await _picker.pickImage(
       source: ImageSource.gallery,
@@ -276,6 +258,7 @@ class _RegisterFormState extends State<RegisterForm> {
     }
   }
 
+  /// Toma una foto con la cámara
   Future<void> _takePhoto() async {
     final XFile? photo = await _picker.pickImage(
       source: ImageSource.camera,
@@ -295,15 +278,7 @@ class _RegisterFormState extends State<RegisterForm> {
         border: OutlineInputBorder(),
       ),
       keyboardType: TextInputType.number,
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return l10n.mustEnterAge;
-        }
-        if (int.tryParse(value) == null) {
-          return l10n.invalidAge;
-        }
-        return null;
-      },
+      validator: (value) => FormValidators.validateAge(value, l10n),
     );
   }
 

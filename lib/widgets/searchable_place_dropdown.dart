@@ -1,7 +1,5 @@
 import 'package:cuaderno1/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import '../models/place.dart';
-import '../services/place_repository.dart';
 
 class SearchablePlaceDropdown extends StatefulWidget {
   final String? initialValue;
@@ -20,9 +18,15 @@ class SearchablePlaceDropdown extends StatefulWidget {
 }
 
 class _SearchablePlaceDropdownState extends State<SearchablePlaceDropdown> {
-  final PlaceRepository _placeRepository = PlaceRepository();
+  static const List<String> _places = [
+    'Barcelona',
+    'Madrid',
+    'Zaragoza',
+    'Valencia',
+  ];
+
   final TextEditingController _controller = TextEditingController();
-  List<Place> _filteredPlaces = [];
+  List<String> _filteredPlaces = [];
   bool _showDropdown = false;
   String? _selectedPlace;
 
@@ -31,12 +35,18 @@ class _SearchablePlaceDropdownState extends State<SearchablePlaceDropdown> {
     super.initState();
     _selectedPlace = widget.initialValue;
     _controller.text = widget.initialValue ?? '';
-    _filteredPlaces = _placeRepository.getAllPlaces();
+    _filteredPlaces = _places;
   }
 
   void _onSearchChanged(String query) {
     setState(() {
-      _filteredPlaces = _placeRepository.searchPlaces(query);
+      if (query.isEmpty) {
+        _filteredPlaces = _places;
+      } else {
+        _filteredPlaces = _places
+            .where((place) => place.toLowerCase().contains(query.toLowerCase()))
+            .toList();
+      }
       _showDropdown = true;
     });
   }
@@ -52,10 +62,9 @@ class _SearchablePlaceDropdownState extends State<SearchablePlaceDropdown> {
 
   @override
   Widget build(BuildContext context) {
-    final allPlaces = _placeRepository.getAllPlaces();
     final searchText = _controller.text;
-    final hasExactMatch = allPlaces.any(
-      (place) => place.name.toLowerCase() == searchText.toLowerCase(),
+    final hasExactMatch = _places.any(
+      (place) => place.toLowerCase() == searchText.toLowerCase(),
     );
     final l10n = AppLocalizations.of(context)!;
 
@@ -73,7 +82,7 @@ class _SearchablePlaceDropdownState extends State<SearchablePlaceDropdown> {
           onTap: () {
             setState(() {
               _showDropdown = true;
-              _filteredPlaces = _placeRepository.getAllPlaces();
+              _filteredPlaces = _places;
             });
           },
           validator: (value) {
@@ -95,12 +104,10 @@ class _SearchablePlaceDropdownState extends State<SearchablePlaceDropdown> {
               child: ListView(
                 shrinkWrap: true,
                 children: [
-                  // Show filtered places from repository
                   ..._filteredPlaces.map((place) => ListTile(
-                        title: Text(place.name),
-                        onTap: () => _selectPlace(place.name),
+                        title: Text(place),
+                        onTap: () => _selectPlace(place),
                       )),
-                  // Show "Other: <search text>" if no exact match and user is typing
                   if (searchText.isNotEmpty && !hasExactMatch)
                     ListTile(
                       leading: Icon(Icons.add_location, color: Colors.blue),

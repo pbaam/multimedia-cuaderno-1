@@ -44,4 +44,14 @@ class OrderService extends ChangeNotifier {
   Future<Order?> getOrderById(String id) async {
     return await _repository.getOrderById(id);
   }
+
+  void updateOrderStatus(String orderId, OrderStatus newStatus) {
+    try {
+      final order = _orders.firstWhere((o) => o.id == orderId);
+      order.status = newStatus;
+      notifyListeners();
+    } catch (e) {
+      debugPrint('Error updating order status: $e');
+    }
+  }
 }

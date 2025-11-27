@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/login_form.dart';
 import '../widgets/language_button.dart';
+import '../config/resources/app_colors.dart';
+import '../config/resources/app_dimensions.dart';
 
 class PantallaInicioSesion extends StatefulWidget {
   const PantallaInicioSesion({super.key});
@@ -25,9 +27,9 @@ class _PantallaInicioSesion extends State<PantallaInicioSesion> {
       ),
       body: Center(
         child: ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: 500),
+          constraints: BoxConstraints(maxWidth: AppDimensions.maxWidth500),
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24.0),
+            padding: EdgeInsets.all(AppDimensions.spacing24),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
@@ -35,23 +37,23 @@ class _PantallaInicioSesion extends State<PantallaInicioSesion> {
                 SvgPicture.asset(
                   'images/youtube.svg',
                   semanticsLabel: 'YouTube logo',
-                  height: 150,
-                  width: 150,
+                  height: AppDimensions.imageSize150,
+                  width: AppDimensions.imageSize150,
                   colorFilter: ColorFilter.mode(
-                    Colors.lightBlueAccent,
+                    AppColors.primary,
                     BlendMode.srcIn,
                   ),
                   placeholderBuilder: (context) => Container(
-                    width: 150,
-                    height: 150,
+                    width: AppDimensions.imageSize150,
+                    height: AppDimensions.imageSize150,
                     child: Icon(
                       Icons.account_circle,
-                      size: 150,
-                      color: Colors.lightBlueAccent,
+                      size: AppDimensions.imageSize150,
+                      color: AppColors.primary,
                     ),
                   ),
                 ),
-                SizedBox(height: 40),
+                SizedBox(height: AppDimensions.spacing40),
                 LoginForm(),
               ],
             ),
